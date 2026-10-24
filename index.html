@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadece Senin İçin | Esra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        :root {
+            --color-cream: #FDFBF7;
+            --color-soft-pink: #FCE4EC;
+            --color-dusty-rose: #B28D9D;
+            --color-charcoal: #4A4A4A;
+            --dark-bg: #121212;
+            --dark-surface: #1E1E1E;
+            --dark-text: #E0E0E0;
+            --dark-muted: #A0A0A0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-cream);
+            color: var(--color-charcoal);
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-romantic { font-family: 'Dancing Script', cursive; }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.5s ease;
+        }
+        .dark .glass {
+            background: rgba(30, 30, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--dark-text);
+        }
+
+        .heart {
+            position: fixed !important;
+            color: #B28D9D !important;
+            pointer-events: none !important;
+            z-index: 10000 !important;
+            user-select: none !important;
+            font-size: 24px !important;
+            top: -50px !important;
+        }
+
+        .heart-animation {
+            animation: floatDown 4s linear forwards !important;
+        }
+
+        @keyframes floatDown {
+            0% { transform: translateY(0) scale(0); opacity: 1; }
+            10% { opacity: 1; }
+            100% { transform: translateY(110vh) scale(1.2); opacity: 0; }
+        }
+
+        .click-heart {
+            position: fixed !important;
+            color: #B28D9D !important;
+            pointer-events: none !important;
+            animation: clickFloat 1s ease-out forwards !important;
+            z-index: 9999 !important;
+            font-size: 20px !important;
+        }
+
+        @keyframes clickFloat {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(-50%, -100px) scale(1.5); opacity: 0; }
+        }
+
+        .collected-heart {
+            position: absolute;
+            color: #B28D9D;
+            font-size: 12px;
+            pointer-events: none;
+            animation: popIn 0.3s ease-out forwards;
+            z-index: 10;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
+        }
+
+        .fade-in { animation: fadeIn 2s ease-in forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .photo-frame {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+
+        #main-content { display: none; }
+
+        .dark-text-primary { transition: color 0.5s ease; }
+        .dark-text-muted { transition: color 0.5s ease; }
+        .dark-bg-section { transition: background-color 0.5s ease; }
+
+        .music-pulse {
+            animation: pulseBeat 0.6s infinite ease-in-out;
+        }
+
+        @keyframes pulseBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .music-pulse-btn {
+            animation: pulseBeat 0.6s infinite ease-in-out;
+        }
+
+        .heart-btn {
+            background-color: #B28D9D;
+            clip-path: path('M24 42.7l-2.9-2.64C10.8 30.72 4 24.56 4 17 4 10.84 8.84 6 15 6c3.48 0 6.82 1.62 9 4.18C26.18 7.62 29.52 6 33 6 39.16 6 44 10.84 44 17c0 7.56-6.8 13.72-17.1 23.08L24 42.7z');
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: scale(1);
+        }
+        .heart-btn:hover {
+            background-color: #9A7585;
+            transform: scale(1.1);
+        }
+
+        #image-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.9);
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.3s ease;
+        }
+        #modal-img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        #playlist-container {
+            display: none;
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            width: 250px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .playlist-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .playlist-item:hover {
+            background: rgba(178, 141, 157, 0.2);
+        }
+        .playlist-item.active {
+            background: rgba(178, 141, 157, 0.3);
+            border-left: 4px solid #B28D9D;
+            font-weight: 600;
+        }
+
+        /* ===== Yıldızlı Gökyüzü (Karanlık Mod) ===== */
+        #star-canvas {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        body.dark #star-canvas { opacity: 1; }
+
+        /* ===== Daktilo (Typewriter) Efekti ===== */
+        .typewriter-text {
+            display: inline-block;
+            border-right: 3px solid #B28D9D;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: blinkCursor 0.7s step-end infinite;
+        }
+        body.dark .typewriter-text { border-right-color: #E0E0E0; }
+        @keyframes blinkCursor {
+            0%, 100% { border-color: #B28D9D; }
+            50% { border-color: transparent; }
+        }
+        body.dark .typewriter-text {
+            animation: blinkCursorDark 0.7s step-end infinite;
+        }
+        @keyframes blinkCursorDark {
+            0%, 100% { border-color: #E0E0E0; }
+            50% { border-color: transparent; }
+        }
+        .typewriter-line {
+            display: block;
+            min-height: 1.2em;
+        }
+        .hero-cursor {
+            display: inline-block;
+            width: 5px;
+            height: 0.85em;
+            background: #B28D9D;
+            margin-left: 6px;
+            vertical-align: middle;
+            border-radius: 2px;
+            animation: heroBlink 0.8s step-end infinite;
+        }
+        body.dark .hero-cursor { background: #E0E0E0; }
+        @keyframes heroBlink { 50% { opacity: 0; } }
+        .hero-sub-hidden { opacity: 0; transition: opacity 1s ease; }
+        .hero-sub-shown { opacity: 1; }
+
+        /* ===== Geri Sayım (Sürpriz Sayacı) ===== */
+        .countdown-box {
+            background: linear-gradient(135deg, rgba(178,141,157,0.15), rgba(252,228,236,0.4));
+            border: 1px solid rgba(178,141,157,0.25);
+        }
+        body.dark .countdown-box {
+            background: linear-gradient(135deg, rgba(178,141,157,0.18), rgba(30,30,30,0.6));
+            border: 1px solid rgba(178,141,157,0.3);
+        }
+        .countdown-num {
+            transition: transform 0.3s ease;
+        }
+        .countdown-num:hover { transform: scale(1.15); }
+
+        /* ===== Galeri Carousel ===== */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .carousel-slide {
+            min-width: 100%;
+            padding: 0 6px;
+            box-sizing: border-box;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+            background: rgba(255,255,255,0.85);
+            color: #B28D9D;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+        }
+        .carousel-btn:hover {
+            background: #B28D9D;
+            color: #fff;
+            transform: translateY(-50%) scale(1.1);
+        }
+        body.dark .carousel-btn {
+            background: rgba(30,30,30,0.85);
+            color: #E0E0E0;
+        }
+        body.dark .carousel-btn:hover {
+            background: #B28D9D;
+            color: #fff;
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 18px;
+        }
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(178,141,157,0.35);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .carousel-dot.active {
+            background: #B28D9D;
+            width: 28px;
+            border-radius: 5px;
+        }
+
+        /* ===== Lightbox Navigasyon ===== */
+        #lightbox-prev, #lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2001;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+        }
+        #lightbox-prev { left: 24px; }
+        #lightbox-next { right: 24px; }
+        #lightbox-prev:hover, #lightbox-next:hover {
+            background: rgba(178,141,157,0.85);
+            transform: translateY(-50%) scale(1.1);
+        }
+        #lightbox-caption {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            z-index: 2001;
+            text-align: center;
+        }
+        #lightbox-counter {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            z-index: 2001;
+        }
+    </style>
+</head>
+<body id="body-root">
+
+    <canvas id="star-canvas"></canvas>
+
+    <div id="entrance-screen" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#FCE4EC] text-center px-6">
+        <div class="max-w-md">
+            <h1 class="font-serif text-4xl md:text-6xl text-[#B28D9D] mb-8 italic">Sadece senin için hazırlandı...</h1>
+            <button id="open-btn" class="bg-[#B28D9D] text-white px-12 py-4 rounded-full text-xl font-medium shadow-xl hover:bg-[#9A7585] transition-all transform hover:scale-110">
+                Sürprizi Aç ❤️
+            </button>
+        </div>
+    </div>
+
+    <div id="main-content" class="fade-in">
+        <div class="fixed bottom-6 left-6 z-50 glass p-3 rounded-full shadow-lg flex items-center gap-4 transition-all hover:scale-105" id="player-ui">
+            <div class="flex items-center gap-3">
+                <button id="music-toggle" class="heart-btn music-pulse-btn shadow-lg">
+                    <i data-lucide="play" id="play-icon" class="w-4 h-4 text-white fill-current"></i>
+                    <i data-lucide="pause" id="pause-icon" class="w-4 h-4 text-white fill-current hidden"></i>
+                </button>
+                <div class="pr-2 cursor-pointer" id="playlist-trigger">
+                    <p class="text-[10px] uppercase tracking-tighter opacity-60 font-bold leading-none">Şimdi Çalıyor</p>
+                    <p id="current-track-name" class="text-xs font-medium leading-tight truncate max-w-[120px]">Yükleniyor...</p>
+                </div>
+            </div>
+            <audio id="music-player" src="" preload="auto"></audio>
+            <div id="playlist-container" class="glass">
+                <div id="playlist-items"></div>
+            </div>
+        </div>
+
+        <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center glass" id="nav-bar">
+            <span class="font-romantic text-3xl text-[#B28D9D]">Bizim Dünyamız</span>
+            <div class="flex gap-4 items-center">
+                <button id="dark-mode-toggle" class="p-2 rounded-full glass hover:bg-white/80 transition-all">
+                    <i data-lucide="moon" id="moon-icon" class="w-5 h-5 text-gray-600"></i>
+                    <i data-lucide="sun" id="sun-icon" class="w-5 h-5 text-yellow-400 hidden"></i>
+                </button>
+                <a href="#gallery" class="text-sm font-medium hover:text-[#B28D9D] transition-colors nav-link">Anılarımız</a>
+                <a href="#timer" class="text-sm font-medium hover:text-[#B28D9D] transition-colors nav-link">Süremiz</a>
+            </div>
+        </nav>
+
+        <section class="min-h-screen flex items-center justify-center relative px-6 pt-20 overflow-hidden dark-bg-section">
+            <div class="absolute top-20 left-10 w-64 h-64 bg-[#B28D9D] opacity-10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-64 h-64 bg-pink-200 opacity-20 rounded-full blur-3xl"></div>
+            <div class="text-center relative z-10">
+                <h2 class="font-serif text-5xl md:text-8xl text-[#2D2D2D] mb-6 leading-tight hero-title dark-text-primary">
+                    <span id="hero-typewriter"></span><span class="hero-cursor"></span>
+                </h2>
+                <p id="hero-subtitle" class="font-romantic text-3xl md:text-4xl text-gray-500 mb-12 dark-text-muted hero-sub-hidden">
+                    Hayatımın en güzel detayı olduğun için teşekkürler...
+                </p>
+                <div class="flex justify-center gap-4">
+                    <div class="w-12 h-12 bg-[#B28D9D] rounded-full animate-bounce flex items-center justify-center text-white">
+                        <i data-lucide="chevron-down"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timer" class="py-24 px-6 bg-white/50 text-center dark-bg-section">
+            <h3 class="font-serif text-3xl mb-12 text-[#B28D9D]" data-aos="fade-down">Beraber Geçirdiğimiz Her Saniye...</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="100">
+                <div class="glass p-6 rounded-3xl shadow-sm">
+                    <div id="days" class="text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest dark-text-muted">Gün</div>
+                </div>
+                <div class="glass p-6 rounded-3xl shadow-sm">
+                    <div id="hours" class="text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest dark-text-muted">Saat</div>
+                </div>
+                <div class="glass p-6 rounded-3xl shadow-sm">
+                    <div id="minutes" class="text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest dark-text-muted">Dakika</div>
+                </div>
+                <div class="glass p-6 rounded-3xl shadow-sm">
+                    <div id="seconds" class="text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                    <div class="text-sm text-gray-500 uppercase tracking-widest dark-text-muted">Saniye</div>
+                </div>
+            </div>
+            <p class="font-romantic text-2xl text-[#B28D9D] mt-8 animate-pulse" data-aos="fade-up" data-aos-delay="200">Ve hala her saniye seni daha çok seviyorum...</p>
+        </section>
+
+        <!-- Özel Gün Sayaçları (Kaydırmalı Carousel) -->
+        <section id="countdown" class="py-24 px-6 text-center bg-[#FDFBF7] dark-bg-section">
+            <div class="max-w-2xl mx-auto">
+                <h3 class="font-serif text-3xl md:text-4xl mb-4 text-[#B28D9D]" data-aos="fade-down">Özel Günlerimiz...</h3>
+                <p class="font-romantic text-2xl text-gray-500 mb-12 dark-text-muted" data-aos="fade-up" data-aos-delay="100">Her özel gün, seninle daha da güzel. Hepsini kaydırarak gör 📖</p>
+                <div class="relative" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="overflow-hidden rounded-2xl">
+                        <div class="carousel-track" id="multi-track"></div>
+                    </div>
+                    <button class="carousel-btn left-2 md:left-3" id="multi-prev" aria-label="Önceki sayaç">
+                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                    </button>
+                    <button class="carousel-btn right-2 md:right-3" id="multi-next" aria-label="Sonraki sayaç">
+                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                    </button>
+                    <div class="carousel-dots" id="multi-dots"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-24 px-6 md:px-12 bg-[#FDFBF7] dark-bg-section">
+            <div class="text-center mb-20">
+                <h3 class="font-serif text-4xl text-[#2D2D2D] mb-4 gallery-title dark-text-primary" data-aos="fade-down">En Güzel Anılarımız</h3>
+                <p class="font-romantic text-2xl text-gray-500 dark-text-muted" data-aos="fade-up" data-aos-delay="100">Her fotoğraf bir hikaye, her hikaye sen...</p>
+            </div>
+            <div class="max-w-2xl mx-auto relative" data-aos="zoom-in" data-aos-delay="150">
+                <div class="overflow-hidden rounded-2xl">
+                    <div class="carousel-track" id="carousel-track"></div>
+                </div>
+                <button class="carousel-btn left-2 md:left-3" id="carousel-prev" aria-label="Önceki fotoğraf">
+                    <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button class="carousel-btn right-2 md:right-3" id="carousel-next" aria-label="Sonraki fotoğraf">
+                    <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+                <div class="carousel-dots" id="carousel-dots"></div>
+            </div>
+        </section>
+
+        <!-- Final Love Note -->
+        <section class="py-32 px-6 text-center bg-white relative dark-bg-section">
+            <div class="max-w-2xl mx-auto glass p-12 rounded-[40px] shadow-2xl relative z-10" data-aos="zoom-in-up">
+                <i data-lucide="heart" class="mx-auto text-[#B28D9D] mb-6 w-12 h-12 animate-pulse"></i>
+                <h3 class="font-serif text-3xl mb-6 dark-text-primary">Sana Notum</h3>
+                <p class="font-romantic text-2xl leading-relaxed text-gray-600 dark-text-muted mb-12">
+                    "Dünyadaki tüm renkler senin gülüşünle anlam kazandı. Seninle geçen her an, hayatımın en değerli hazinesi. İyi ki varsın, iyi ki benimlesin..."
+                </p>
+                <div class="flex justify-end">
+                    <div class="font-serif text-2xl italic text-[#B28D9D] font-bold pr-4">
+                        Ömer ❤️
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer (Heart Collection Area) -->
+        <footer id="footer-collector" class="relative py-24 text-center text-gray-400 text-sm bg-[#FDFBF7] overflow-hidden dark-bg-section">
+            <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[#B28D9D] to-transparent opacity-30"></div>
+            <div class="relative z-20">
+                <div class="flex justify-center items-center gap-2 mb-6">
+                    <div class="w-6 h-6 bg-[#B28D9D] rounded-full flex items-center justify-center text-white text-xs font-serif italic font-bold">E</div>
+                    <span class="font-serif text-xl font-bold text-[#2D2D2D] dark-text-primary">Esra</span>
+                </div>
+                <p class="font-romantic text-xl text-[#B28D9D] mb-2">Sonsuza dek, her anımda seninle...</p>
+                <p class="text-xs opacity-60 dark-text-muted">© 2026 Esra Romantik Sürpriz | Sadece Sana Özel ❤️</p>
+            </div>
+        </footer >
+    </div>
+
+    <!-- IMAGE MODAL (LIGHTBOX) -->
+    <div id="image-modal" onclick="closeImage()">
+        <div id="lightbox-counter"></div>
+        <button id="lightbox-prev" onclick="lightboxNav(event, -1)" aria-label="Önceki fotoğraf">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <img id="modal-img" src="" alt="Anı">
+        <button id="lightbox-next" onclick="lightboxNav(event, 1)" aria-label="Sonraki fotoğraf">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+        <div id="lightbox-caption"></div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const openBtn = document.getElementById('open-btn');
+        const entranceScreen = document.getElementById('entrance-screen');
+        const mainContent = document.getElementById('main-content');
+        const musicPlayer = document.getElementById('music-player');
+        const musicToggle = document.getElementById('music-toggle');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const darkModeBtn = document.getElementById('dark-mode-toggle');
+        const moonIcon = document.getElementById('moon-icon');
+        const sunIcon = document.getElementById('sun-icon');
+        const footer = document.getElementById('footer-collector');
+        const playlistTrigger = document.getElementById('playlist-trigger');
+        const playlistContainer = document.getElementById('playlist-container');
+        const playlistItems = document.getElementById('playlist-items');
+        const currentTrackName = document.getElementById('current-track-name');
+
+        let isMusicPlaying = false;
+        let isDarkMode = false;
+
+        const songs = [
+            { name: "Gökhan Türkmen - Aşk", file: "şarkı/Gökhan Türkmen - Aşk .mp3" },
+            { name: "Parasetamol - Galaksilerce Sevgi", file: "şarkı/Parasetamol – Galaksilerce Sevgi Ft. Liya.mp3" },
+            { name: "Tülay Özer - Büklüm Büklüm", file: "şarkı/Tülay Özer - Büklüm büklüm.mp3" },
+            { name: "Rafat Hasanlı - Senin Gibisini Bulamam", file: "şarkı/Rafat Hasanlı - Senin Gibisini Bulamam .mp3" },
+            { name: "Amo988 - Elini Ver", file: "şarkı/Amo988 - Elini Ver (128kbit_Opus).opus" },
+            { name: "Amo988 - Gülüşüne Yanıyorum (Official Video)", file: "şarkı/Amo988 - Gülüşüne Yanıyorum (Official Video) (128kbit_Opus).opus" },
+            { name: "Aşkın Marşı", file: "şarkı/Aşkın Marşı (128kbit_AAC).m4a" },
+            { name: "Aydilge - Sade Şarkı (Lyric Video)", file: "şarkı/Aydilge - Sade Şarkı (Lyric Video) (128kbit_Opus).opus" },
+            { name: "Ayça Özefe - Sıcak Şarap (Cover) ¦ Twitch Kesitleri", file: "şarkı/Ayça Özefe - Sıcak Şarap (Cover) ¦ Twitch Kesitleri (128kbit_Opus).opus" },
+            { name: "Aşk Eski Bir Yalan - Kâmuran Akkor ⁄⁄ Sözleri", file: "şarkı/Aşk Eski Bir Yalan - Kâmuran Akkor ⁄⁄ Sözleri (128kbit_Opus).opus" },
+            { name: "B.S.B", file: "şarkı/B.S.B (128kbit_AAC).m4a" },
+            { name: "BLOK3 - GÜZEL KIZIM (Official Audio)", file: "şarkı/BLOK3 - GÜZEL KIZIM (Official Audio) (128kbit_Opus).opus" },
+            { name: "Baha Canım Sevgilim", file: "şarkı/Baha Canım Sevgilim (152kbit_Opus).opus" },
+            { name: "Bana Ellerini Ver - Özdemir Erdoğan", file: "şarkı/Bana Ellerini Ver - Özdemir Erdoğan (128kbit_Opus).opus" },
+            { name: "Bana Geri Gel", file: "şarkı/Bana Geri Gel (128kbit_AAC).m4a" },
+            { name: "Batuhan Kordel - Dik Yokuşum", file: "şarkı/Batuhan Kordel - Dik Yokuşum (128kbit_Opus).opus" },
+            { name: "Berk Baysal - Yaralarını Ben Sarayım ( Official Audio )", file: "şarkı/Berk Baysal - Yaralarını Ben Sarayım ( Official Audio ) (128kbit_Opus).opus" },
+            { name: "Bitkin Gözler", file: "şarkı/Bitkin Gözler (128kbit_AAC).m4a" },
+            { name: "Bizim Gönül  - Sevdanın Külleri", file: "şarkı/Bizim Gönül  - Sevdanın Külleri (128kbit_Opus).opus" },
+            { name: "Buray - Sen Sevda Mısın", file: "şarkı/Buray - Sen Sevda Mısın (128kbit_Opus).opus" },
+            { name: "Can Oflaz - Fikrimin İnce Gülü", file: "şarkı/Can Oflaz - Fikrimin İnce Gülü (128kbit_Opus).opus" },
+            { name: "Can Ozan - Sar Bu Şehri", file: "şarkı/Can Ozan - Sar Bu Şehri (128kbit_Opus).opus" },
+            { name: "Can Ozan - Toprak Yağmura", file: "şarkı/Can Ozan - Toprak Yağmura (128kbit_Opus).opus" },
+            { name: "Carla Morrison - Disfruto (Türkçe Çeviri)", file: "şarkı/Carla Morrison - Disfruto (Türkçe Çeviri) (128kbit_Opus).opus" },
+            { name: "Cem Adrian & Ezgi Kosa - Gönül (Lyric Video)", file: "şarkı/Cem Adrian & Ezgi Kosa - Gönül (Lyric Video) (152kbit_Opus).opus" },
+            { name: "Cem Adrian - Ben Seni Çok Sevdim (Official Audio)", file: "şarkı/Cem Adrian - Ben Seni Çok Sevdim (Official Audio) (128kbit_Opus).opus" },
+            { name: "Cem Özkan - Olmayacak Bir Hayal", file: "şarkı/Cem Özkan - Olmayacak Bir Hayal (128kbit_Opus).opus" },
+            { name: "Cihan Mürtezaoğlu - Sen Banasın (Animasyon Video)", file: "şarkı/Cihan Mürtezaoğlu - Sen Banasın (Animasyon Video) (128kbit_Opus).opus" },
+            { name: "DELİ", file: "şarkı/DELİ (128kbit_AAC).m4a" },
+            { name: "Damarımda Kanımsın", file: "şarkı/Damarımda Kanımsın (128kbit_Opus).opus" },
+            { name: "Davichi & T-ara(다비치&티아라) _ We were in love(우리 사랑했잖아) MV", file: "şarkı/Davichi & T-ara(다비치&티아라) _ We were in love(우리 사랑했잖아) MV (128kbit_Opus).opus" },
+            { name: "Duman - Elleri Ellerime", file: "şarkı/Duman - Elleri Ellerime (128kbit_Opus).opus" },
+            { name: "Duman - Seni Kendime Sakladım", file: "şarkı/Duman - Seni Kendime Sakladım (128kbit_Opus).opus" },
+            { name: "Dön İstersen", file: "şarkı/Dön İstersen (128kbit_AAC).m4a" },
+            { name: "ESERDİN TENİMDE", file: "şarkı/ESERDİN TENİMDE (128kbit_AAC).m4a" },
+            { name: "Ekin Uzunlar & Pınar Süer  - Adı Sensin Bilsinler", file: "şarkı/Ekin Uzunlar & Pınar Süer  - Adı Sensin Bilsinler (128kbit_Opus).opus" },
+            { name: "Elif Buse Doğan - Hastayım Sana (Akustik Renkler Live 2024) ¦ 8K", file: "şarkı/Elif Buse Doğan - Hastayım Sana (Akustik Renkler Live 2024) ¦ 8K (128kbit_Opus).opus" },
+            { name: "Eslem Aktürk - Eklemedir Koca Konak", file: "şarkı/Eslem Aktürk - Eklemedir Koca Konak (96kbit_Opus).opus" },
+            { name: "Eylem Aktaş - Söyleyemedim", file: "şarkı/Eylem Aktaş - Söyleyemedim (128kbit_Opus).opus" },
+            { name: "Eylem Aktaş - Yüreğimden Tut (Akustik)", file: "şarkı/Eylem Aktaş - Yüreğimden Tut (Akustik) (128kbit_Opus).opus" },
+            { name: "Feridun Duzagac - Beni Birakma (Video Version)", file: "şarkı/Feridun Duzagac - Beni Birakma (Video Version) (96kbit_Opus).opus" },
+            { name: "Gece Mavisi (Original Mix)", file: "şarkı/Gece Mavisi (Original Mix) (128kbit_Opus).opus" },
+            { name: "Gece Yolcuları - Meyhaneler Sen...", file: "şarkı/Gece Yolcuları - Meyhaneler Sen... (96kbit_Opus).opus" },
+            { name: "Gripin- Durma Yağmur Durma (sözleri⁄lyrics)", file: "şarkı/Gripin- Durma Yağmur Durma (sözleri⁄lyrics) (128kbit_Opus).opus" },
+            { name: "Harun Kolçak feat. Tan Taşçı - Gitme Seviyorum", file: "şarkı/Harun Kolçak feat. Tan Taşçı - Gitme Seviyorum (128kbit_Opus).opus" },
+            { name: "HiraiZerdüş - En Derinimsin  ⁴³²", file: "şarkı/HiraiZerdüş - En Derinimsin  ⁴³² (152kbit_Opus).opus" },
+            { name: "Kaan Boşnak - Benimle Kayboldun", file: "şarkı/Kaan Boşnak - Benimle Kayboldun (128kbit_Opus).opus" },
+            { name: "Kaldı 8 - Yanında Uyansam", file: "şarkı/Kaldı 8 - Yanında Uyansam (128kbit_Opus).opus" },
+            { name: "Kamuran Akkor & Sagopa Kajmer (Düet) - Bir Ateşe Attın Beni (© Elenor Müzik)", file: "şarkı/Kamuran Akkor & Sagopa Kajmer (Düet) - Bir Ateşe Attın Beni (© Elenor Müzik) (128kbit_Opus).opus" },
+            { name: "Karsu - Jest Oldu", file: "şarkı/Karsu - Jest Oldu (152kbit_Opus).opus" },
+            { name: "Kurşun Adres Sormaz Ki ¦ Anatolian Psychedelic Rock Cover", file: "şarkı/Kurşun Adres Sormaz Ki ¦ Anatolian Psychedelic Rock Cover (128kbit_Opus).opus" },
+            { name: "Kör Bi' Aşık", file: "şarkı/Kör Bi' Aşık (128kbit_AAC).m4a" },
+            { name: "Kısa Mesafe", file: "şarkı/Kısa Mesafe (128kbit_AAC).m4a" },
+            { name: "Let's Twist Again - Chubby Checker", file: "şarkı/Let's Twist Again - Chubby Checker (96kbit_Opus).opus" },
+            { name: "Majeste - Aşk Dediğin ( Official Video )", file: "şarkı/Majeste - Aşk Dediğin ( Official Video ) (128kbit_Opus).opus" },
+            { name: "Mavi Gri & Ahmet Hatipoğlu - Gülüşünde Bi' Şeyler Saklı", file: "şarkı/Mavi Gri & Ahmet Hatipoğlu - Gülüşünde Bi' Şeyler Saklı (128kbit_Opus).opus" },
+            { name: "Mavi Gri & Ahmet Hatipoğlu - Ölümle Yaşam Arasında", file: "şarkı/Mavi Gri & Ahmet Hatipoğlu - Ölümle Yaşam Arasında (128kbit_Opus).opus" },
+            { name: "Melek Mosso - Sabahçı Kahvesi", file: "şarkı/Melek Mosso - Sabahçı Kahvesi (128kbit_Opus).opus" },
+            { name: "Melike Şahin - Öpmem Lâzım (Official Music Video)", file: "şarkı/Melike Şahin - Öpmem Lâzım (Official Music Video) (128kbit_Opus).opus" },
+            { name: "Melis Fis - Bir Ömür Daha (Official Video)", file: "şarkı/Melis Fis - Bir Ömür Daha (Official Video) (128kbit_Opus).opus" },
+            { name: "Miva-Bir Düş Misâli♪", file: "şarkı/Miva-Bir Düş Misâli♪ (128kbit_Opus).opus" },
+            { name: "Mühürledim Seni Kalbime (Bir Hadise Var)", file: "şarkı/Mühürledim Seni Kalbime (Bir Hadise Var) (152kbit_Opus).opus" },
+            { name: "O Benim Dünyam", file: "şarkı/O Benim Dünyam (128kbit_Opus).opus" },
+            { name: "O Yeterdi", file: "şarkı/O Yeterdi (128kbit_AAC).m4a" },
+            { name: "Otogar", file: "şarkı/Otogar (128kbit_AAC).m4a" },
+            { name: "PERA - Aşk Koydum Adını", file: "şarkı/PERA - Aşk Koydum Adını (128kbit_Opus).opus" },
+            { name: "PERA - Bal (Official Lyric Video)", file: "şarkı/PERA - Bal (Official Lyric Video) (128kbit_Opus).opus" },
+            { name: "Pera & Işıl Ayman - Uyanmayalım", file: "şarkı/Pera & Işıl Ayman - Uyanmayalım (128kbit_Opus).opus" },
+            { name: "Pera - Gecenin En Güzeli (Lyric Video)", file: "şarkı/Pera - Gecenin En Güzeli (Lyric Video) (128kbit_Opus).opus" },
+            { name: "Pera - Sensiz Ben (Official Video)", file: "şarkı/Pera - Sensiz Ben (Official Video) (128kbit_Opus).opus" },
+            { name: "Pera - Yollar", file: "şarkı/Pera - Yollar (128kbit_Opus).opus" },
+            { name: "Perdenin Ardındakiler - Her Gece", file: "şarkı/Perdenin Ardındakiler - Her Gece (128kbit_Opus).opus" },
+            { name: "Perdenin Ardındakiler - Kendime", file: "şarkı/Perdenin Ardındakiler - Kendime (128kbit_Opus).opus" },
+            { name: "Pinhâni – Aşk Bir Mevsim", file: "şarkı/Pinhâni – Aşk Bir Mevsim (128kbit_Opus).opus" },
+            { name: "Rafat Hasanlı - Eserdin Tenimde (Offical Lyric Video)", file: "şarkı/Rafat Hasanlı - Eserdin Tenimde (Offical Lyric Video) (128kbit_AAC).m4a" },
+            { name: "Rafat Hasanlı - Kısa Mesafe", file: "şarkı/Rafat Hasanlı - Kısa Mesafe (128kbit_AAC).m4a" },
+            { name: "Rafat Hasanlı - Senin Gibisini Bulamam", file: "şarkı/Rafat Hasanlı - Senin Gibisini Bulamam (128kbit_AAC).m4a" },
+            { name: "Rafat Hasanlı - Seviyorum Seni", file: "şarkı/Rafat Hasanlı - Seviyorum Seni (128kbit_Opus).opus" },
+            { name: "Rafat Hasanlı - Söyle Sevgilim", file: "şarkı/Rafat Hasanlı - Söyle Sevgilim (128kbit_Opus).opus" },
+            { name: "Rafat Hasanlı - Taksinin Arka Koltuğu", file: "şarkı/Rafat Hasanlı - Taksinin Arka Koltuğu (128kbit_Opus).opus" },
+            { name: "Rafet El Roman - Bana Sen Lazımsın", file: "şarkı/Rafet El Roman - Bana Sen Lazımsın (128kbit_Opus).opus" },
+            { name: "Raviş - Bir Sarılsak Geçer (Official Audio) #arafta", file: "şarkı/Raviş - Bir Sarılsak Geçer (Official Audio) #arafta (128kbit_Opus).opus" },
+            { name: "Raviş - Güzel Kadın (Official Video) [ @RavisMuzik  ]", file: "şarkı/Raviş - Güzel Kadın (Official Video) [ @RavisMuzik  ] (128kbit_Opus).opus" },
+            { name: "Redd - Kozmos (Lyric Video)", file: "şarkı/Redd - Kozmos (Lyric Video) (128kbit_Opus).opus" },
+            { name: "Redd - Nefes Bile Almadan (Aşk Tesadüfleri Sever )", file: "şarkı/Redd - Nefes Bile Almadan (Aşk Tesadüfleri Sever ) (128kbit_Opus).opus" },
+            { name: "Resul Dindar ⁄ En Sonum", file: "şarkı/Resul Dindar ⁄ En Sonum (152kbit_Opus).opus" },
+            { name: "Selçuk Balcı - Bir Sevdadır ( Canlı Performans )", file: "şarkı/Selçuk Balcı - Bir Sevdadır ( Canlı Performans ) (128kbit_Opus).opus" },
+            { name: "Senin Gibisini Bulamam", file: "şarkı/Senin Gibisini Bulamam (128kbit_AAC).m4a" },
+            { name: "Senin Gibisini Bulamam (Akustik)", file: "şarkı/Senin Gibisini Bulamam (Akustik) (128kbit_AAC).m4a" },
+            { name: "Sensiz Aşkı Neyleyim (Bir Gece Masalı)", file: "şarkı/Sensiz Aşkı Neyleyim (Bir Gece Masalı) (152kbit_Opus).opus" },
+            { name: "Seviyorum Seni", file: "şarkı/Seviyorum Seni (128kbit_AAC).m4a" },
+            { name: "Sinan Güleryüz feat. Özge Özder - Senle Ben", file: "şarkı/Sinan Güleryüz feat. Özge Özder - Senle Ben (96kbit_Opus).opus" },
+            { name: "Sinan Güleryüz feat. Özge Özder ¦¦ Senle Ben - Sözleri (Lyrics)", file: "şarkı/Sinan Güleryüz feat. Özge Özder ¦¦ Senle Ben - Sözleri (Lyrics) (96kbit_Opus).opus" },
+            { name: "Skapova - Neden Bu Kadar Güzelsin¿ (Official Music Video)", file: "şarkı/Skapova - Neden Bu Kadar Güzelsin¿ (Official Music Video) (128kbit_Opus).opus" },
+            { name: "Son Feci Bisiklet - Bu Kız", file: "şarkı/Son Feci Bisiklet - Bu Kız (128kbit_Opus).opus" },
+            { name: "Suzan Hacigarip - Kül", file: "şarkı/Suzan Hacigarip - Kül (152kbit_Opus).opus" },
+            { name: "Suzan Hacıgarip - Yağmur (Keşfedilmesi Gereken Şarkılar)", file: "şarkı/Suzan Hacıgarip - Yağmur (Keşfedilmesi Gereken Şarkılar) (152kbit_Opus).opus" },
+            { name: "Söyle Sevgilim", file: "şarkı/Söyle Sevgilim (128kbit_AAC).m4a" },
+            { name: "Söyle Sunam", file: "şarkı/Söyle Sunam (128kbit_Opus).opus" },
+            { name: "Söyledim aşkımı ben Ankara rüzgarına (Jed Cover)", file: "şarkı/Söyledim aşkımı ben Ankara rüzgarına (Jed Cover) (128kbit_Opus).opus" },
+            { name: "TELAŞK", file: "şarkı/TELAŞK (128kbit_AAC).m4a" },
+            { name: "Taksinin Arka Koltuğu", file: "şarkı/Taksinin Arka Koltuğu (128kbit_AAC).m4a" },
+            { name: "Tuğkan - Ellerimde Çiçekler", file: "şarkı/Tuğkan - Ellerimde Çiçekler (152kbit_Opus).opus" },
+            { name: "Tuna Velibaşoğlu ¦ Sen Kal Ölene Kadar", file: "şarkı/Tuna Velibaşoğlu ¦ Sen Kal Ölene Kadar (152kbit_Opus).opus" },
+            { name: "Turuncu Gökyüzü - Saçlarına Düşmüş Yıldızlar", file: "şarkı/Turuncu Gökyüzü - Saçlarına Düşmüş Yıldızlar (128kbit_Opus).opus" },
+            { name: "Tuğkan - Kusura Bakma (Official Music Video)", file: "şarkı/Tuğkan - Kusura Bakma (Official Music Video) (128kbit_Opus).opus" },
+            { name: "Tülay Özer - Büklüm büklüm (lyrics⁄sözleri)", file: "şarkı/Tülay Özer - Büklüm büklüm (lyrics⁄sözleri) (128kbit_Opus).opus" },
+            { name: "Volkan Konak - Sevda Değil ¦ Kuzeyin Oğlu Volkan Konak 7. Bölüm", file: "şarkı/Volkan Konak - Sevda Değil ¦ Kuzeyin Oğlu Volkan Konak 7. Bölüm (128kbit_Opus).opus" },
+            { name: "Yalın - Benimki (Official Audio)", file: "şarkı/Yalın - Benimki (Official Audio) (128kbit_Opus).opus" },
+            { name: "Yasaklarda", file: "şarkı/Yasaklarda (128kbit_Opus).opus" },
+            { name: "Yaşlı Amca - İstanbul Beyefendisi", file: "şarkı/Yaşlı Amca - İstanbul Beyefendisi (128kbit_Opus).opus" },
+            { name: "Yine De Unut", file: "şarkı/Yine De Unut (128kbit_AAC).m4a" },
+            { name: "Yıldız Tilbe - Sevgilim Benim ( Seni Düşüneceğim )", file: "şarkı/Yıldız Tilbe - Sevgilim Benim ( Seni Düşüneceğim ) (128kbit_Opus).opus" },
+            { name: "Zaaf - Ömrümün En Güzel Yarısı (Official Lyric Video)", file: "şarkı/Zaaf - Ömrümün En Güzel Yarısı (Official Lyric Video) (128kbit_Opus).opus" },
+            { name: "Zalim", file: "şarkı/Zalim (128kbit_AAC).m4a" },
+            { name: "Zehra - Çok Seviyorum", file: "şarkı/Zehra - Çok Seviyorum (128kbit_Opus).opus" },
+            { name: "Ziynet Sali - Daha Nasıl Sevebilirim", file: "şarkı/Ziynet Sali - Daha Nasıl Sevebilirim (128kbit_Opus).opus" },
+            { name: "Zülfü Livaneli - Sevda Değil", file: "şarkı/Zülfü Livaneli - Sevda Değil (128kbit_Opus).opus" },
+            { name: "gece yolcuları - birisi var", file: "şarkı/gece yolcuları - birisi var (128kbit_Opus).opus" },
+            { name: "gripin - Aşk Nereden Nereye (Official Video)", file: "şarkı/gripin - Aşk Nereden Nereye (Official Video) (128kbit_Opus).opus" },
+            { name: "madrigal- seni dert etmeler ⁄ ayca ozefe cover", file: "şarkı/madrigal- seni dert etmeler ⁄ ayca ozefe cover (128kbit_Opus).opus" },
+            { name: "Çağan Şengül - Sen (Lyric Video)", file: "şarkı/Çağan Şengül - Sen (Lyric Video) (128kbit_Opus).opus" },
+            { name: "Çünkü sen, çölüme yağmur oldun.", file: "şarkı/Çünkü sen, çölüme yağmur oldun. (128kbit_Opus).opus" },
+            { name: "İkiye On Kala - Bütün İstanbul Biliyo", file: "şarkı/İkiye On Kala - Bütün İstanbul Biliyo (152kbit_Opus).opus" },
+            { name: "İkiye On Kala - Evim Ol", file: "şarkı/İkiye On Kala - Evim Ol (128kbit_Opus).opus" },
+            { name: "İkiye On Kala - Kendimi Sende Buldum", file: "şarkı/İkiye On Kala - Kendimi Sende Buldum (128kbit_Opus).opus" },
+            { name: "İkiye On Kala - Terapiye Hiç Gerek Yok", file: "şarkı/İkiye On Kala - Terapiye Hiç Gerek Yok (128kbit_Opus).opus" },
+            { name: "İrem Güral & Ekin Uzunlar - Firuze", file: "şarkı/İrem Güral & Ekin Uzunlar - Firuze (128kbit_Opus).opus" }
+        ];
+        let currentSongIndex = 0;
+
+        openBtn.addEventListener('click', () => {
+            entranceScreen.style.transition = 'opacity 0.5s ease';
+            entranceScreen.style.opacity = '0';
+
+            setTimeout(() => {
+                entranceScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                mainContent.classList.add('fade-in');
+                startHearts();
+                setupPlaylist();
+                toggleMusic(true);
+                buildCarousel();
+                startTypewriter();
+                if (window.AOS) { AOS.refreshHard(); }
+                lucide.createIcons();
+            }, 500);
+        });
+
+        function setupPlaylist() {
+            playlistItems.innerHTML = '';
+            songs.forEach((song, index) => {
+                const item = document.createElement('div');
+                item.className = `playlist-item ${index === currentSongIndex ? 'active' : ''}`;
+                item.innerText = song.name;
+                item.onclick = (e) => {
+                    e.stopPropagation();
+                    playSong(index);
+                };
+                playlistItems.appendChild(item);
+            });
+            currentTrackName.innerText = songs[currentSongIndex].name;
+            musicPlayer.src = songs[currentSongIndex].file;
+        }
+
+        function playSong(index) {
+            currentSongIndex = index;
+            musicPlayer.src = songs[currentSongIndex].file;
+            currentTrackName.innerText = songs[currentSongIndex].name;
+            document.querySelectorAll('.playlist-item').forEach((item, idx) => {
+                item.classList.toggle('active', idx === index);
+            });
+            isMusicPlaying = true;
+            musicPlayer.play().catch(e => console.log("Playback error:", e));
+            playIcon.classList.add('hidden');
+            pauseIcon.classList.remove('hidden');
+            musicToggle.classList.add('music-pulse');
+            playlistContainer.style.display = 'none';
+        }
+
+        function toggleMusic(forcePlay = false) {
+            if (forcePlay || !isMusicPlaying) {
+                musicPlayer.play().then(() => {
+                    isMusicPlaying = true;
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    musicToggle.classList.add('music-pulse');
+                }).catch(e => {
+                    console.log("Playback failed:", e);
+                    isMusicPlaying = false;
+                });
+            } else {
+                musicPlayer.pause();
+                isMusicPlaying = false;
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                musicToggle.classList.remove('music-pulse');
+            }
+        }
+
+        musicToggle.addEventListener('click', () => toggleMusic());
+
+        playlistTrigger.addEventListener('click', () => {
+            const isDisplayed = playlistContainer.style.display === 'block';
+            playlistContainer.style.display = isDisplayed ? 'none' : 'block';
+        });
+
+        document.addEventListener('click', (e) => {
+            if (playlistContainer && playlistContainer.style.display === 'block' && !playlistTrigger.contains(e.target) && !playlistContainer.contains(e.target)) {
+                playlistContainer.style.display = 'none';
+            }
+            if (mainContent && mainContent.style.display === 'block') {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = 'click-heart';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+
+        function startHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.className = 'heart';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                heart.classList.add('heart-animation');
+                heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    collectHeart();
+                    heart.remove();
+                }, 4000);
+            }, 300);
+        }
+
+        function collectHeart() {
+            const collected = document.createElement('div');
+            collected.innerHTML = '❤️';
+            collected.className = 'collected-heart';
+            const footerRect = footer.getBoundingClientRect();
+            const randomX = Math.random() * footerRect.width;
+            const randomY = Math.random() * footerRect.height;
+            collected.style.left = randomX + 'px';
+            collected.style.top = randomY + 'px';
+            footer.appendChild(collected);
+            const heartsInFooter = footer.querySelectorAll('.collected-heart');
+            if (heartsInFooter.length > 100) {
+                heartsInFooter[0].remove();
+            }
+        }
+
+        darkModeBtn.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            const body = document.body;
+            if (isDarkMode) {
+                body.classList.add('dark');
+                body.style.backgroundColor = 'var(--dark-bg)';
+                body.style.color = 'var(--dark-text)';
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+                document.querySelectorAll('.nav-link').forEach(el => el.style.color = 'var(--dark-muted)');
+                document.querySelectorAll('.hero-title, .gallery-title').forEach(el => el.style.color = 'var(--dark-text)');
+                document.querySelectorAll('.dark-text-primary').forEach(el => el.style.color = 'var(--dark-text)');
+                document.querySelectorAll('.dark-text-muted').forEach(el => el.style.color = 'var(--dark-muted)');
+                document.querySelectorAll('.dark-bg-section').forEach(el => el.style.backgroundColor = 'transparent');
+            } else {
+                body.classList.remove('dark');
+                body.style.backgroundColor = 'var(--color-cream)';
+                body.style.color = 'var(--color-charcoal)';
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+                document.querySelectorAll('.nav-link').forEach(el => el.style.color = 'var(--color-charcoal)');
+                document.querySelectorAll('.hero-title, .gallery-title').forEach(el => el.style.color = '#2D2D2D');
+                document.querySelectorAll('.dark-text-primary').forEach(el => el.style.color = '#2D2D2D');
+                document.querySelectorAll('.dark-text-muted').forEach(el => el.style.color = 'var(--color-charcoal)');
+                document.querySelectorAll('.dark-bg-section').forEach(el => el.style.backgroundColor = 'transparent');
+            }
+        });
+
+        function initTimer() {
+            const startDate = new Date('2020-01-01T00:00:00');
+            const update = () => {
+                const now = new Date();
+                const diff = now - startDate;
+                if(document.getElementById('days')) {
+                    document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    document.getElementById('hours').innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                    document.getElementById('minutes').innerText = Math.floor((diff / 1000 / 60) % 60);
+                    document.getElementById('seconds').innerText = Math.floor((diff / 1000) % 60);
+                }
+            };
+            setInterval(update, 1000);
+            update();
+        }
+        initTimer();
+
+        /* ===== Galeri Verisi (Carousel + Lightbox ortak) ===== */
+        const galleryImages = [
+            { src: 'görseller/1.jpeg', caption: 'Her şeyin başladığı o an... ❤️' },
+            { src: 'görseller/2.jpeg', caption: 'Dünyanın en güzel gülüşüyle... ✨' },
+            { src: 'görseller/3.jpeg', caption: 'Sadece biz, sonsuza kadar. ❤️' },
+            { src: 'görseller/4.jpeg', caption: 'Hayatımdaki en değerli hazinem... ❤️' }
+        ];
+
+        /* ===== Galeri Carousel ===== */
+        let currentSlide = 0;
+        let carouselTimer = null;
+
+        function buildCarousel() {
+            const track = document.getElementById('carousel-track');
+            const dots = document.getElementById('carousel-dots');
+            if (!track || track.childElementCount > 0) return;
+            galleryImages.forEach((img, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                slide.innerHTML = `
+                    <div class="photo-frame relative rounded-2xl overflow-hidden shadow-lg rotate-[-1deg] bg-white p-2 border border-gray-100 dark:bg-zinc-800 dark:border-zinc-700" onclick="openImage(${i})">
+                        <img src="${img.src}" class="w-full h-72 md:h-96 object-cover rounded-lg" alt="Anı ${i+1}" loading="lazy">
+                        <div class="mt-3 text-center font-romantic text-xl text-[#B28D9D]">${img.caption}</div>
+                    </div>`;
+                track.appendChild(slide);
+
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => { goToSlide(i); resetCarouselTimer(); };
+                dots.appendChild(dot);
+            });
+
+            document.getElementById('carousel-prev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetCarouselTimer(); });
+            document.getElementById('carousel-next').addEventListener('click', () => { goToSlide(currentSlide + 1); resetCarouselTimer(); });
+
+            startCarouselTimer();
+        }
+
+        function goToSlide(i) {
+            currentSlide = (i + galleryImages.length) % galleryImages.length;
+            const track = document.getElementById('carousel-track');
+            if (track) track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('#carousel-dots .carousel-dot').forEach((d, idx) => d.classList.toggle('active', idx === currentSlide));
+        }
+
+        function startCarouselTimer() {
+            carouselTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+        }
+        function resetCarouselTimer() {
+            if (carouselTimer) clearInterval(carouselTimer);
+            startCarouselTimer();
+        }
+
+        /* ===== Lightbox (Modal) ===== */
+        let currentLightboxIndex = 0;
+
+        function openImage(index) {
+            currentLightboxIndex = (typeof index === 'number') ? index : 0;
+            showLightboxImage();
+            const modal = document.getElementById('image-modal');
+            if (modal) modal.style.display = 'flex';
+            lucide.createIcons();
+        }
+
+        function showLightboxImage() {
+            const img = galleryImages[currentLightboxIndex];
+            const modalImg = document.getElementById('modal-img');
+            modalImg.src = img.src;
+            document.getElementById('lightbox-caption').innerText = img.caption;
+            document.getElementById('lightbox-counter').innerText = `${currentLightboxIndex + 1} / ${galleryImages.length}`;
+        }
+
+        function lightboxNav(e, dir) {
+            if (e) e.stopPropagation();
+            currentLightboxIndex = (currentLightboxIndex + dir + galleryImages.length) % galleryImages.length;
+            showLightboxImage();
+        }
+
+        function closeImage() {
+            document.getElementById('image-modal').style.display = 'none';
+        }
+
+        /* Klavye ile lightbox gezinme */
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('image-modal');
+            if (!modal || modal.style.display !== 'flex') return;
+            if (e.key === 'ArrowLeft') lightboxNav(e, -1);
+            else if (e.key === 'ArrowRight') lightboxNav(e, 1);
+            else if (e.key === 'Escape') closeImage();
+        });
+
+        /* ===== Özel Gün Sayaçları (Kaydırmalı Carousel) ===== */
+        // NOT: Ay 0=Ocak, 1=Şubat ... 11=Aralık. Ayarlamak istediğin özel günleri buraya ekleyebilirsin.
+        const multiSpecialDays = [
+            { name: 'Yıldönümümüz 💕', month: 0, day: 1 },
+            { name: 'Sevgililer Günü 🌹', month: 1, day: 14 },
+            { name: 'Kadınlar Günü 💐', month: 2, day: 8 },
+            { name: "Esra'nın Doğum Günü 🎂", month: 5, day: 15 },
+            { name: 'Yeni Yıl 🎉', month: 11, day: 31 }
+        ];
+
+        let multiSlide = 0;
+        let multiTimer = null;
+
+        function buildMultiCountdown() {
+            const track = document.getElementById('multi-track');
+            const dots = document.getElementById('multi-dots');
+            if (!track || track.childElementCount > 0) return;
+            multiSpecialDays.forEach((d, i) => {
+                const slide = document.createElement('div');
+                slide.className = 'carousel-slide';
+                slide.innerHTML = `
+                    <div class="countdown-box p-6 md:p-8 rounded-3xl shadow-sm">
+                        <p class="font-serif text-2xl md:text-3xl text-[#B28D9D] mb-6">${d.name}</p>
+                        <div class="grid grid-cols-4 gap-2 md:gap-4">
+                            <div>
+                                <div id="md-days-${i}" class="countdown-num text-3xl md:text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                                <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest dark-text-muted mt-1">Gün</div>
+                            </div>
+                            <div>
+                                <div id="md-hours-${i}" class="countdown-num text-3xl md:text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                                <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest dark-text-muted mt-1">Saat</div>
+                            </div>
+                            <div>
+                                <div id="md-minutes-${i}" class="countdown-num text-3xl md:text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                                <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest dark-text-muted mt-1">Dakika</div>
+                            </div>
+                            <div>
+                                <div id="md-seconds-${i}" class="countdown-num text-3xl md:text-4xl font-serif font-bold text-[#B28D9D]">0</div>
+                                <div class="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest dark-text-muted mt-1">Saniye</div>
+                            </div>
+                        </div>
+                    </div>`;
+                track.appendChild(slide);
+
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.onclick = () => { goToMulti(i); resetMultiTimer(); };
+                dots.appendChild(dot);
+            });
+
+            document.getElementById('multi-prev').addEventListener('click', () => { goToMulti(multiSlide - 1); resetMultiTimer(); });
+            document.getElementById('multi-next').addEventListener('click', () => { goToMulti(multiSlide + 1); resetMultiTimer(); });
+
+            startMultiTimer();
+            updateMultiCountdown();
+            setInterval(updateMultiCountdown, 1000);
+        }
+
+        function nextSpecialTarget(d) {
+            const now = new Date();
+            let target = new Date(now.getFullYear(), d.month, d.day, 0, 0, 0);
+            if (target <= now) target = new Date(now.getFullYear() + 1, d.month, d.day, 0, 0, 0);
+            return target;
+        }
+
+        function updateMultiCountdown() {
+            const now = new Date();
+            multiSpecialDays.forEach((d, i) => {
+                const diff = nextSpecialTarget(d) - now;
+                const setEl = (suffix, val) => {
+                    const el = document.getElementById(`md-${suffix}-${i}`);
+                    if (el) el.innerText = String(val).padStart(2, '0');
+                };
+                setEl('days', Math.floor(diff / (1000 * 60 * 60 * 24)));
+                setEl('hours', Math.floor((diff / (1000 * 60 * 60)) % 24));
+                setEl('minutes', Math.floor((diff / 1000 / 60) % 60));
+                setEl('seconds', Math.floor((diff / 1000) % 60));
+            });
+        }
+
+        function goToMulti(i) {
+            multiSlide = (i + multiSpecialDays.length) % multiSpecialDays.length;
+            const track = document.getElementById('multi-track');
+            if (track) track.style.transform = `translateX(-${multiSlide * 100}%)`;
+            document.querySelectorAll('#multi-dots .carousel-dot').forEach((d, idx) => d.classList.toggle('active', idx === multiSlide));
+        }
+
+        function startMultiTimer() {
+            multiTimer = setInterval(() => goToMulti(multiSlide + 1), 4000);
+        }
+        function resetMultiTimer() {
+            if (multiTimer) clearInterval(multiTimer);
+            startMultiTimer();
+        }
+        buildMultiCountdown();
+
+        /* ===== Daktilo (Typewriter) Efekti ===== */
+        function startTypewriter() {
+            const tw = document.getElementById('hero-typewriter');
+            const sub = document.getElementById('hero-subtitle');
+            if (!tw) return;
+            const full = 'Seni Çok Seviyorum';
+            let i = 0;
+            tw.textContent = '';
+            const type = () => {
+                if (i < full.length) {
+                    tw.textContent += full.charAt(i);
+                    i++;
+                    setTimeout(type, 130);
+                } else {
+                    // Yazım bitince pembe vurguyu geri uygula
+                    tw.innerHTML = 'Seni <span class="italic text-[#B28D9D]">Çok Seviyorum</span>';
+                    if (sub) sub.classList.add('hero-sub-shown');
+                }
+            };
+            type();
+        }
+
+        /* ===== Yıldızlı Gökyüzü (Karanlık Mod) ===== */
+        function initStars() {
+            const canvas = document.getElementById('star-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let stars = [];
+            let shootingStars = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                stars = [];
+                const count = Math.floor((canvas.width * canvas.height) / 9000);
+                for (let i = 0; i < count; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        r: Math.random() * 1.2 + 0.3,
+                        a: Math.random() * Math.PI * 2,
+                        twinkle: Math.random() * 0.03 + 0.005
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                stars.forEach(s => {
+                    s.a += s.twinkle;
+                    const alpha = 0.3 + Math.abs(Math.sin(s.a)) * 0.7;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(230, 230, 255, ${alpha})`;
+                    ctx.fill();
+                });
+
+                // Kayan yıldızlar
+                if (Math.random() < 0.004 && shootingStars.length < 2) {
+                    shootingStars.push({
+                        x: Math.random() * canvas.width * 0.8,
+                        y: Math.random() * canvas.height * 0.4,
+                        len: Math.random() * 80 + 60,
+                        speed: Math.random() * 6 + 6,
+                        angle: Math.PI / 4,
+                        life: 1
+                    });
+                }
+                shootingStars.forEach(ss => {
+                    const tailX = ss.x - Math.cos(ss.angle) * ss.len;
+                    const tailY = ss.y - Math.sin(ss.angle) * ss.len;
+                    const grad = ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
+                    grad.addColorStop(0, `rgba(255, 255, 255, ${ss.life})`);
+                    grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(ss.x, ss.y);
+                    ctx.lineTo(tailX, tailY);
+                    ctx.stroke();
+                    ss.x += Math.cos(ss.angle) * ss.speed;
+                    ss.y += Math.sin(ss.angle) * ss.speed;
+                    ss.life -= 0.015;
+                });
+                shootingStars = shootingStars.filter(s => s.life > 0 && s.x < canvas.width + 120);
+                requestAnimationFrame(draw);
+            }
+
+            resize();
+            window.addEventListener('resize', resize);
+            draw();
+        }
+
+        /* ===== AOS + Yıldız başlat (sayfa yüklenince) ===== */
+        if (window.AOS) {
+            AOS.init({ duration: 1000, once: true, offset: 80 });
+        }
+        initStars();
+    </script>
+</body>
+</html>
